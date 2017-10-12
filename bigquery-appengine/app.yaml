@@ -1,5 +1,5 @@
 runtime: go                    # the runtime (python, java, go, php)
-api_version: go1               # the runtime version
+api_version: go1.8               # the runtime version
 
 handlers:
 - url: /.*                     # for all requests
