@@ -2,7 +2,7 @@
 // Use of this source code is governed by the Apache 2.0
 // license that can be found in the LICENSE file.
 
-// Command simpleapp queries the Shakespeare sample dataset in Google BigQuery.
+// Command simpleapp queries the Sentinel dataset in Google BigQuery.
 package main
 
 import (
@@ -45,7 +45,7 @@ func query(proj string) (*bigquery.RowIterator, error) {
 	query := client.Query(
 		`SELECT * FROM ` +
 			"`bigquery-public-data.cloud_storage_geo_index.sentinel_2_index`" +
-			` WHERE west_lon = 32.0470531263` +
+			` WHERE west_lon < 32.0470531263 AND west_lon > 32.0465531263` +
 			` LIMIT 10;`)
 	// Use standard SQL syntax for queries.
 	// See: https://cloud.google.com/bigquery/sql-reference/
@@ -53,7 +53,6 @@ func query(proj string) (*bigquery.RowIterator, error) {
 	return query.Read(ctx)
 }
 
-// printResults prints results from a query to the Shakespeare dataset.
 func printResults(w io.Writer, iter *bigquery.RowIterator) error {
 	for {
 		var row []bigquery.Value
